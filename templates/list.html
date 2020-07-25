@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>This is OUR list</h1>
+
+<div class="container-fluid" style="margin: 2rem auto;">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" action="/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Enter New Title</label>
+                    {{form.title}}
+                </div>
+                <button type="submit" class="btn btn-secondary">Create Task</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% for task in tasks %}
+<div>
+    <a href="{% url 'update' task.id %}">Update</a>
+    <a href="{% url 'delete' task.id %}">Delete</a>
+    {% if task.complete == True %}
+    <strike>{{task}}</strike>
+    {% else %}
+    <span>{{task}}</span>
+    {% endif %}
+</div>
+{% endfor %}
+
+
+
+{% endblock %}
